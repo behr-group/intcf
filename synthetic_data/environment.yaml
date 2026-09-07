@@ -1,0 +1,14 @@
+name: CausalForest
+dependencies:
+  - python=3.10
+  - pip
+  - numpy<2
+  - pandas
+  # R
+  - r-base=4.4.3
+  - r-grf
+  - r-pak
+  - zlib
+  - rpy2
+  - pip:
+    -  econml
