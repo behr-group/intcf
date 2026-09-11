@@ -23,9 +23,6 @@ def single_simulation(model, s, iter, estimation_method):
     # reseed for every parameter to make results only depend on parameter, not position in list
     rng = np.random.default_rng(seed)
     eval_covariates, _, _, eval_treatment_effect = model(N_eval, rng)
-    _, p = eval_covariates.shape
-    # signal_features = np.array(model.heterogeneity_features)
-    # confounder_features = np.array(model.confounder)
     
     rng = np.random.default_rng(seed + iter)
     covariates, treatment, outcomes, _ = model(N, rng)
@@ -40,14 +37,6 @@ def single_simulation(model, s, iter, estimation_method):
         heterogeneity=True,
         max_depth=importance_max_depth
     )
-    # if confounder_features.size > 0:
-    #     feat_importance_confounder = cf.feature_importances(
-    #         heterogeneity=False,
-    #         max_depth=importance_max_depth
-    #     )[confounder_features].sum()
-    # else:
-    #     feat_importance_confounder = 0
-    # return f"{s},{iter},{model.name},{mse},{mse_0},{feat_importance_het[signal_features].sum()},{feat_importance_confounder},{estimation_method.name}\n"
     return f'{s},{iter},{model.name},{estimation_method.name},{mse},{mse_0},"{feat_importance_het.tolist()}"\n'
 
 def simulation(s, iter, estimation_method):
